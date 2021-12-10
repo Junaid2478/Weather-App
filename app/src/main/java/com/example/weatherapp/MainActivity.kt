@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         tempText = findViewById(R.id.temp)
         feelsLikeText = findViewById(R.id.feels_like)
 
+        //taking text from edit text and adding it as a parameter to getWeather
         button.setOnClickListener { view ->
             val text = edittext.text.toString()
 
@@ -63,6 +64,9 @@ class MainActivity : AppCompatActivity() {
         // returns empty strings for the results if the input is invalid
     }
 
+    /*getWeather takes the city String as a parameter and uses it along with the api key (from strings.xml) to build the url for the http
+     request to the open weather api */
+
     private fun getWeather(city: String) {
         loading.visibility = View.VISIBLE
 
@@ -76,6 +80,7 @@ class MainActivity : AppCompatActivity() {
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
+                //Handler creates seperate thread that runs code from the main thread of the activity allowing you to change UI elements
                 Handler(Looper.getMainLooper()).post {
                     clearTexts()
                     loading.visibility = View.GONE
@@ -122,3 +127,4 @@ class MainActivity : AppCompatActivity() {
         })
     }
 }
+// total time taken for this project was 6 hours
